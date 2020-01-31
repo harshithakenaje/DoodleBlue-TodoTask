@@ -1,0 +1,104 @@
+{
+  "openapi": "3.0",
+  "info": {
+    "title": "TODO App",
+    "version": "0.0.0",
+    "description": "TODO App server",
+    "contact": {
+      "name": "Harshitha K S",
+      "email": ""
+    }
+  },
+  "servers": [{
+    "url": "http://localhost:3000",
+    "description": "Local development server"
+  }],
+  "basePath": "/",
+  "components": {
+    "responses": {
+      "401": {
+        "description": "Unauthorized Request Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UnauthorizedResponse"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Unprocessable entity",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UnprocessableResponse"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/BackendErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {},
+    "schemas": {
+      "UnprocessableResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "description": "List of errors",
+            "items": {
+              "type": "object",
+              "description": "Errored Parameter Object",
+              "properties": {
+                "location": {
+                  "type": "string",
+                  "description": "Can be body, query or path",
+                  "example": "body"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "Ivalid value or a custom message specifying what is expected",
+                  "example": "Value should be a valid email"
+                },
+                "param": {
+                  "type": "string",
+                  "description": "Specifies the name of the invalid parameter",
+                  "example": "user_email"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UnauthorizedResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "error message in detail",
+            "example": "unauthorized request"
+          }
+        }
+      },
+      "BackendErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "error message in detail",
+            "example": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}
